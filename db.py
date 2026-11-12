@@ -50,6 +50,17 @@ class database:
         self.cursor.execute(sql, (name, days_between, last_date))
         self.conn.commit()
 
+        return self.cursor.lastrowid
+
+    def update_food(self, last_date, food_id):
+        sql = """ 
+            UPDATE foods
+            SET last_date = ?
+            WHERE id = ?
+        """
+        self.cursor.execute(sql, (last_date, food_id))
+        self.conn.commit()
+
     def get_foods(self):
         sql = """
             SELECT * FROM foods
